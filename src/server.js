@@ -1,5 +1,8 @@
 import express from "express"
 import cors from "cors"
+import listEndpoints from "express-list-endpoints"
+
+import booksRoutes from "./books/index.js"
 
 const app = express()
 
@@ -44,6 +47,14 @@ app.use(cors(corsOptions))
 
 // routers
 
+app.use("/books", booksRoutes)
+
+console.log(listEndpoints(app))
+
 app.listen(port, () => {
-  console.log("Server running on port: ", port)
+  if (process.env.NODE_ENV === "production") {
+    console.log("Server running on cloud on port: ", port)
+  } else {
+    console.log("Server running locally on port: ", port)
+  }
 })
