@@ -6,13 +6,13 @@ import booksRoutes from "./books/index.js"
 
 const app = express()
 
-const port = process.env.PORT
+const port = process.env.PORT // no need to configure it manually on Heroku
 
 //app.use(cors()) // no options means allow everybody
 
 // app.use(cors({ origin: process.env.FE_URL })) // "http://localhost:3000" is the only origin allowed
 
-const whitelist = [process.env.FE_URL_DEV, process.env.FE_URL_PROD]
+const whitelist = [process.env.FE_URL_DEV, process.env.FE_URL_PROD] // You NEED to configure it manually on Heroku
 
 const corsOptions = {
   origin: function (origin, next) {
@@ -53,6 +53,7 @@ console.log(listEndpoints(app))
 
 app.listen(port, () => {
   if (process.env.NODE_ENV === "production") {
+    // no need to configure it manually on Heroku
     console.log("Server running on cloud on port: ", port)
   } else {
     console.log("Server running locally on port: ", port)
